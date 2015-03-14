@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyColck</string>
+    <string name="hello">Hello World, MyColckActivity!</string>
+    <string name="add_alarm">add_alarm</string>
+    <string name="start">开始</string>
+    <string name="pause">暂停</string>
+    <string name="reset">重置</string>
+    <string name="inputtime">请输入时间</string>
+    <string name="countting">正在计时</string>
+    <string name="ready">准备计时</string>
+
+</resources>
