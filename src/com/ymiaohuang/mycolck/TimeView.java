@@ -1,10 +1,11 @@
 package com.ymiaohuang.mycolck;
-/*
- * ¶¨Ê±ÖØ¸´µ÷ÓÃÄ³¶Îº¯Êı¡£ÊµÏÖÊ±¼äµÄË¢ĞÂ¡£
- * Handler¶ÔÏûÏ¢µÄ´¦Àí»áĞÂ½¨Ò»¸ö×ÓÏß³Ì¡£
- * ÀûÓÃÊµÀı»¯HandlerÀà²¢ÖØĞ´handleMassage·½·¨£¬ÔÚ·½·¨ÄÚ²¿Ìí¼ÓÏëÒªµ÷ÓÃµÄ·½·¨¡£
- * ÔÚhandleMassageÄÚ²¿Ìí¼ÓsendEmptyMessageDelayed(0, 1000)ÄÜÖØ¸´µ÷ÓÃhandleMassage·½·¨¡£
- * sendEmptyMessage(0)£º¿ªÆôhandleMassage£¨£©;
+/* è®¡æ—¶æ˜¾ç¤ºï¼Œåœ¨StopWatchå’Œalarmä¸­å·²æœ‰è¿ç”¨ã€‚
+ *
+ * å®šæ—¶é‡å¤è°ƒç”¨æŸæ®µå‡½æ•°ã€‚å®ç°æ—¶é—´çš„åˆ·æ–°ã€‚
+ * Handlerå¯¹æ¶ˆæ¯çš„å¤„ç†ä¼šæ–°å»ºä¸€ä¸ªå­çº¿ç¨‹ã€‚
+ * åˆ©ç”¨å®ä¾‹åŒ–Handlerç±»å¹¶é‡å†™handleMassageæ–¹æ³•ï¼Œåœ¨æ–¹æ³•å†…éƒ¨æ·»åŠ æƒ³è¦è°ƒç”¨çš„æ–¹æ³•ã€‚
+ * åœ¨handleMassageå†…éƒ¨æ·»åŠ sendEmptyMessageDelayed(0, 1000)èƒ½é‡å¤è°ƒç”¨handleMassageæ–¹æ³•ã€‚
+ * sendEmptyMessage(0)ï¼šå¼€å¯handleMassageï¼ˆï¼‰;
  * */
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,13 +28,13 @@ public class TimeView extends LinearLayout {
 	public TimeView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
-	//ÎÒÃÇÒªµ÷ÓÃµÄ¡£ÆäËûÁ½¸öÓÉÏµÍ³µ÷ÓÃ¡£
+	//æˆ‘ä»¬è¦è°ƒç”¨çš„ã€‚å…¶ä»–ä¸¤ä¸ªç”±ç³»ç»Ÿè°ƒç”¨ã€‚
 	public TimeView(Context context) {
 		super(context);
 		
 	}
 	
-	//Íê³É×Ô¶¨Òå¿Ø¼ş±»µ¼Èëµ½XMlÖĞºó´¥·¢onFinishInflate,ËùÒÔ½«×Ô¶¨Òå¿Ø¼şµÄ×Ó¿Ø¼şÔÚ´Ë·½·¨ÄÚÉèÖÃ¡£
+	//å®Œæˆè‡ªå®šä¹‰æ§ä»¶è¢«å¯¼å…¥åˆ°XMlä¸­åè§¦å‘onFinishInflate,æ‰€ä»¥å°†è‡ªå®šä¹‰æ§ä»¶çš„å­æ§ä»¶åœ¨æ­¤æ–¹æ³•å†…è®¾ç½®ã€‚
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		tvTime = (TextView) findViewById(R.id.tvTime);
@@ -41,24 +42,24 @@ public class TimeView extends LinearLayout {
 		timeHandler.sendEmptyMessage(0);
 		
 	}
-	//µ±ViewµÄVisibility·¢ËÍ¸Ä±äÊÇµ÷ÓÃ
+	//å½“Viewçš„Visibilityå‘é€æ”¹å˜æ˜¯è°ƒç”¨ï¼Œå½“è·³è½¬åˆ°å…¶ä»–Viewçš„æ—¶å€™ï¼Œæˆ‘ä»¬ä¸éœ€ç»§ç»­è¿ç®—æ—¶é—´æ˜¾ç¤ºã€‚
 	protected void onVisibilityChanged(View changedView, int visibility) {
 		super.onVisibilityChanged(changedView, visibility);
-		//¿ªÆôºÍ¹Ø±Õ¶¨Ê±Æ÷
+		//å¼€å¯å’Œå…³é—­å®šæ—¶å™¨
 		if (visibility == View.VISIBLE) {
-			timeHandler.sendEmptyMessage(0);//0£ºwhatµÄÖµ£¬ÓÃÓÚÇø·ÖÏûÏ¢À´Ô´¡£
+			timeHandler.sendEmptyMessage(0);//0ï¼šwhatçš„å€¼ï¼Œç”¨äºåŒºåˆ†æ¶ˆæ¯æ¥æºã€‚
 		}else{
 			timeHandler.removeMessages(0);
 		}
 	}
-	//Ë¢ĞÂÊ±¼ä
+	//åˆ·æ–°æ—¶é—´
 	private void refreshTime(){
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 		Date curDate = new Date(System.currentTimeMillis());
 		String str = format.format(curDate);
 		tvTime.setText(str);
 	}
-	//ÉèÖÃÒ»¸ö¶¨Ê±·¢ËÍÆ÷
+	//è®¾ç½®ä¸€ä¸ªå®šæ—¶å‘é€å™¨
 	private Handler timeHandler = new Handler(){
 		public void handleMessage(android.os.Message msg){
 			refreshTime();
