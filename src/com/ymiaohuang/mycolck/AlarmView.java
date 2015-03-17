@@ -1,14 +1,15 @@
 package com.ymiaohuang.mycolck;
 /*
  * 
- * 1.ÄÖÖÓµÄÌí¼Ó
- * ÕâÀïÓÃµ½ÁËListView .. ÓÃµ½ArrayAdapter£¬Calendar¡£
+ * 1.é—¹é’Ÿçš„æ·»åŠ 
+ * è¿™é‡Œç”¨åˆ°äº†ListView .. ç”¨åˆ°ArrayAdapterï¼ŒCalendarã€‚
  * 
- * 2.Í¨¹ıSharedPreferences´æ´¢Êı¾İ
- * SharedPreferences½Ó¿ÚÖ÷Òª¸ºÔğ¶ÁÈ¡Ó¦ÓÃ³ÌĞòµÄPreferencesÊı¾İ£¬
- * Í¨¹ıkey_value¼üÖµ¶Ô´æÈëÊı¾İ¡£
- * Í¨¹ıSharedPreferencesµÄÊµÀı¶ÔÏó»ñÈ¡EditorÍê³É¶ÔÊı¾İµÄĞ´³ö¡£
- * ×îºóEditor.commit()¹Ø±Õ×ÊÔ´¡£
+ * 2.é€šè¿‡SharedPreferenceså­˜å‚¨æ•°æ®
+ * SharedPreferencesæ¥å£ä¸»è¦è´Ÿè´£è¯»å–åº”ç”¨ç¨‹åºçš„Preferencesæ•°æ®ï¼Œ
+ * é€šè¿‡key_valueé”®å€¼å¯¹å­˜å…¥æ•°æ®ã€‚
+ * é€šè¿‡SharedPreferencesçš„å®ä¾‹å¯¹è±¡è·å–Editorå®Œæˆå¯¹æ•°æ®çš„å†™å‡ºã€‚
+ * æœ€åEditor.commit()å…³é—­èµ„æºã€‚
+ * 
  * */
 import java.util.Calendar;
 
@@ -26,23 +27,19 @@ import android.widget.TimePicker;
 
 public class AlarmView extends LinearLayout {
 
-	private Button btnAddAlarm;
-	private ListView lvAlarmList;
+	private Button btnAddAlarm;//æ·»åŠ é—¹é’Ÿ
+	private ListView lvAlarmList;//é—¹é’Ÿåˆ—è¡¨
 	private ArrayAdapter<myAlarm> adapter; 
 	public static final String KEY_ALARM_LIST = "alarmList";
-	
-	public AlarmView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-	}
-
+	//æ­¤æ„é€ å‡½æ•°ç”±XMLè°ƒç”¨ã€‚
 	public AlarmView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
-
+	//ç¨‹åºè°ƒç”¨
 	public AlarmView(Context context) {
 		super(context);
 	}
-	
+	//å½“Viewå’Œå®ƒçš„æ‰€æœ‰å­å¯¹è±¡ä»XMLä¸­å¯¼å…¥ä¹‹åï¼Œè°ƒç”¨æ­¤æ–¹æ³•
 	protected void onFinishInflate() {
 		super.onFinishInflate();
 		
@@ -57,29 +54,29 @@ public class AlarmView extends LinearLayout {
 				addAlarm();
 			}
 		});
-		
+		//è·å–ä¸€ä¸ªListé€‚é…å™¨
 		adapter = new ArrayAdapter<myAlarm>(getContext(), android.R.layout.simple_list_item_1);
 		lvAlarmList.setAdapter(adapter);
 		
 	}
 	
 	public void addAlarm(){
-		//CalendarÊÇ³éÏóÀà£¬Ö»ÄÜÍ¨¹ıgetInstance»ñÈ¡¡£Ä¬ÈÏ»ñÈ¡µÄCalendarÊ±¼äÎªµ±Ç°Ê±¼ä¡£
-		//¿ÉÒÔÍ¨¹ıc.set(Calendar.HOUR_OF_DAY, hour)À´ÉèÖÃÊ±¼ä¡£
+		//Calendaræ˜¯æŠ½è±¡ç±»ï¼Œåªèƒ½é€šè¿‡getInstanceè·å–ã€‚é»˜è®¤è·å–çš„Calendaræ—¶é—´ä¸ºå½“å‰æ—¶é—´ã€‚
+		//å¯ä»¥é€šè¿‡c.set(Calendar.HOUR_OF_DAY, hour)æ¥è®¾ç½®æ—¶é—´ã€‚
 		Calendar c = Calendar.getInstance();
 		
-		//ÈÕÆÚ¶Ô»°¿ò£¬TimePickerDialog£¨Cotext£¬callback£¬Ä¬ÈÏÏÔÊ¾µÄÊ±¼ä£¬Ä¬ÈÏÏÔÊ¾µÄÊ±¼ä£¬24Ğ¡Ê±ÖÆ£©.show
+		//æ—¥æœŸå¯¹è¯æ¡†ï¼ŒTimePickerDialogï¼ˆCotextï¼Œcallbackï¼Œé»˜è®¤æ˜¾ç¤ºçš„æ—¶é—´ï¼Œé»˜è®¤æ˜¾ç¤ºçš„æ—¶é—´ï¼Œ24å°æ—¶åˆ¶ï¼‰.show
 		new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-			//TimePickerDialogµÄÉèÖÃ°´Å¥¡£
+			//TimePickerDialogçš„è®¾ç½®æŒ‰é’®ã€‚
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-				//ÅĞ¶ÏÉèÖÃµÄÄÖÖÓµÄÊ±¼ä£¬ÈçºÎĞ¡ÓÚÏÖÔÚ£¬ÔòÉèÎªÃ÷ÌìµÄÊ±¼ä¡£·ñÔòÎªÉèÖÃµÄÄÖÖÓÊ±¼ä¡£
+				//åˆ¤æ–­è®¾ç½®çš„é—¹é’Ÿçš„æ—¶é—´ï¼Œå¦‚ä½•å°äºç°åœ¨ï¼Œåˆ™è®¾ä¸ºæ˜å¤©çš„æ—¶é—´ã€‚å¦åˆ™ä¸ºè®¾ç½®çš„é—¹é’Ÿæ—¶é—´ã€‚
 				Calendar setTime = Calendar.getInstance();
 				setTime.set(Calendar.HOUR_OF_DAY,hourOfDay);
 				setTime.set(Calendar.MINUTE,minute);
 				
 				Calendar nowTime = Calendar.getInstance();
 				if(setTime.getTimeInMillis()<=nowTime.getTimeInMillis()){
-					setTime.setTimeInMillis(setTime.getTimeInMillis()+24*60*60*1000);//ÑÓ³ÙÒ»Ìì¡£
+					setTime.setTimeInMillis(setTime.getTimeInMillis()+24*60*60*1000);//å»¶è¿Ÿä¸€å¤©ã€‚
 				}
 				
 				adapter.add(new myAlarm(setTime.getTimeInMillis()));
@@ -90,9 +87,9 @@ public class AlarmView extends LinearLayout {
 	}
 	
 	private void saveAlarmList(){
-		//»ñÈ¡Editor
-		//getCount()»ñÈ¡ItemµÄÊıÁ¿£¬getItem(i)»ñÈ¡ItemÖĞµÄ¶ÔÏó¡£
-		//½«Êı¾İput¡£
+		//è·å–Editor
+		//getCount()è·å–Itemçš„æ•°é‡ï¼ŒgetItem(i)è·å–Itemä¸­çš„å¯¹è±¡ã€‚
+		//å°†æ•°æ®putã€‚
 		Editor editor = getContext().getSharedPreferences(AlarmView.class.getName(), Context.MODE_PRIVATE).edit();
 		StringBuffer sb = new StringBuffer();
 		
@@ -102,7 +99,7 @@ public class AlarmView extends LinearLayout {
 		editor.putString(KEY_ALARM_LIST,sb.toString().substring(0, sb.length()-1));
 		editor.commit();
 	}
-	
+	//é—¹é’Ÿçš„è¯»å–ï¼Œæœªå®Œæˆã€‚ã€‚ã€‚
 	private void readSavedAlarmList(){
 		SharedPreferences sp = getContext().getSharedPreferences(AlarmView.class.getName(), Context.MODE_PRIVATE);
 		String content = sp.getString(KEY_ALARM_LIST, null);
@@ -112,12 +109,13 @@ public class AlarmView extends LinearLayout {
 			for (int i = 0; i < timeStrings.length; i++) {
 				
 				//adapter.add(new myAlarm(Long.parseLong(timeStrings[i])));
+				//å°†è¯»å–åˆ°çš„é—¹é’Ÿå†™åˆ°Listä¸Šï¼Œæ­¤å¥æ‰§è¡Œå‡ºé”™ã€‚æœªè§£å†³ã€‚
 				
 			}
 			
 		}
 	}
-	
+	//è‡ªå®šä¹‰ä¸€ä¸ªé—¹é’Ÿç±»ã€‚
 	private static class myAlarm{
 		private long time = 0;
 		private String timeLable = "";
@@ -129,6 +127,7 @@ public class AlarmView extends LinearLayout {
 			timeLable = c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE);
 			
 		}
+		//Listä¸Šçš„æ˜¾ç¤ºä¼šè°ƒç”¨è¯¥ç±»çš„toStringï¼ˆï¼‰æ–¹æ³•ï¼›
 		public String toString() {
 			return getTimeLable();
 		}
