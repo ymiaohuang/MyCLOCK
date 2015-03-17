@@ -1,5 +1,8 @@
 package com.ymiaohuang.mycolck;
-
+/* 计时器，输入一个时间，完成倒计时。
+ * 需要用到知识在其他View中均有介绍。
+ * 
+ */
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,8 +19,8 @@ import android.widget.TextView;
 
 public class TimerView extends LinearLayout implements OnClickListener {
 	private Button btnStart, btnReset;
-	private EditText etTime;
-	private TextView tvStatus;
+	private EditText etTime;//用来输入倒计时时间。
+	private TextView tvStatus;//显示计时状态，
 	private int time = 0, count = 0;
 	private Timer timer = null;
 	private TimerTask timerTask = null;
@@ -53,7 +56,7 @@ public class TimerView extends LinearLayout implements OnClickListener {
 		case R.id.btnstart:
 
 			etTime.setCursorVisible(false);
-
+			//同一个按钮，切换“开始计时”“暂停”功能
 			if (count % 2 == 0) {
 				time = Integer.parseInt(etTime.getText().toString());
 				btnStart.setText(R.string.pause);
@@ -74,7 +77,7 @@ public class TimerView extends LinearLayout implements OnClickListener {
 		}
 	}
 
-	// ��Ϣ���������ܽ��ձ����󷢳�����Ϣ��
+	// 消息处理器，能接收本对象发出的消息。
 	private Handler mHanlder = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			etTime.setText(msg.arg1 + "");
@@ -88,13 +91,13 @@ public class TimerView extends LinearLayout implements OnClickListener {
 
 			public void run() {
 				time--;
-				Message message = mHanlder.obtainMessage();// ͨ��Handler��ȡ��Ϣ����
-				message.arg1 = time;// ���ø���Ϣ�Ĳ���
-				mHanlder.sendMessage(message);// ���͸���Ϣ
+				Message message = mHanlder.obtainMessage();// 通过Handler获取消息对象。
+				message.arg1 = time;// 设置该消息的参数
+				mHanlder.sendMessage(message);// 发送该消息
 			}
 
 		};
-		timer.schedule(timerTask, 1000);
+		timer.schedule(timerTask, 1000);//每一发送一次消息
 	}
 
 	public void puaseTime() {
