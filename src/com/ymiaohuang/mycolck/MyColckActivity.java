@@ -1,7 +1,8 @@
 package com.ymiaohuang.mycolck;
 /*
- * ¶à¹¦ÄÜÊ±ÖÓ£¬Ê¹ÓÃTabHost²¼¾Ö¡£
- * ÕâÀïÑ§Ï°TabHost²¼¾ÖµÄÊ¹ÓÃ¡£
+ * å¤šåŠŸèƒ½æ—¶é’Ÿï¼Œä½¿ç”¨TabHostå¸ƒå±€ã€‚
+ * éœ€è¦ç”¨åˆ°çš„çŸ¥è¯†ï¼š
+ * TableHostå¸ƒå±€ï¼ŒHandleræ¶ˆæ¯å¤„ç†ï¼Œcalendaræ—¥æœŸç±»
  * */
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,12 +15,13 @@ public class MyColckActivity extends Activity {
         setContentView(R.layout.main);
         
         tabHost = (TabHost) findViewById(android.R.id.tabhost);
-        tabHost.setup();//³õÊ¼tabHost
+        tabHost.setup();//åˆå§‹tabHost
         
-        //°´Ë³Ğò¸øtabHostÌí¼Ó±í¡£¼´Ìí¼ÓÑ¡Ïî¿¨£¬±ØĞë¸øÑ¡Ïî¿¨Ìí¼ÓÖ¸Ê¾Æ÷£¨±êÌâ£©ºÍÄÚÈİ¡£
-        tabHost.addTab(tabHost.newTabSpec("tabAlarm").setIndicator("ÄÖÖÓ").setContent(R.id.tabAlarm));
-        tabHost.addTab(tabHost.newTabSpec("tabTime").setIndicator("Ê±ÖÓ").setContent(R.id.tabTime));
-        tabHost.addTab(tabHost.newTabSpec("tabTimer").setIndicator("¼ÆÊ±Æ÷").setContent(R.id.tabTimer));
-        tabHost.addTab(tabHost.newTabSpec("tabStopWatch").setIndicator("Ãë±í").setContent(R.id.tabStopWatch));
+        //æŒ‰é¡ºåºç»™tabHostæ·»åŠ è¡¨ã€‚å³æ·»åŠ é€‰é¡¹å¡ï¼Œå¿…é¡»ç»™é€‰é¡¹å¡æ·»åŠ æŒ‡ç¤ºå™¨ï¼ˆæ ‡é¢˜ï¼‰å’Œå†…å®¹ã€‚
+        //ç‚¹å‡»é€‰é¡¹å¡ï¼Œè·³è½¬åˆ°å¯¹åº”çš„Viewã€‚
+        tabHost.addTab(tabHost.newTabSpec("tabAlarm").setIndicator("é—¹é’Ÿ").setContent(R.id.tabAlarm));
+        tabHost.addTab(tabHost.newTabSpec("tabTime").setIndicator("æ—¶é’Ÿ").setContent(R.id.tabTime));
+        tabHost.addTab(tabHost.newTabSpec("tabTimer").setIndicator("è®¡æ—¶å™¨").setContent(R.id.tabTimer));
+        tabHost.addTab(tabHost.newTabSpec("tabStopWatch").setIndicator("ç§’è¡¨").setContent(R.id.tabStopWatch));
     }
 }
